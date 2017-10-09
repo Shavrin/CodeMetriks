@@ -10,7 +10,6 @@ def press(button):
     if button == "Calculate!":
         path = app.getEntry("PATH")
         extensions = app.getEntry("extensions")
-
         app.stop()
 
 
@@ -36,7 +35,11 @@ app.setEntry("extensions",'py',callFunction=False)
 app.go()
 
 
-fileList = os.listdir()
+fileList = os.listdir(path)
+print(fileList)
+overallLines = 0
+overallCharacters = 0
+
 for fileName in fileList:
     splittedFile = fileName.split('.')
     exts = extensions.split(",")
@@ -49,10 +52,17 @@ for fileName in fileList:
             file.seek(0)
             characters = len(file.read())
             file.close()
-            print("Number of lines: " , lines)
-            print(lines)
-            print("Number of characters: " , characters)
-            print(characters)
+            
+            overallLines += lines
+            overallCharacters += characters
 
+            print("Number of lines: " , lines)
+            print("Number of characters: " , characters)
+
+print("--------------")
+
+print("SUMMARY:")
+print("TOTAL LINES: " , overallLines)
+print("TOTAL CHARACTERS: " , overallCharacters)
 
 
